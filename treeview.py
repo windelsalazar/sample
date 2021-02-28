@@ -37,7 +37,18 @@ def getrow(event):
 
 
 def update_employee():
-    return True
+    employee_id = e1.get()
+    employee = e2.get()
+    branch = e3.get()
+    designation = e4.get()
+
+    if messagebox.askyesno("Confirm Please", "Are you sure you want to update this employee?"):
+        query = "UPDATE tree SET employee = %s, branch = %s, designation = %s WHERE employee_id = %s"
+        cur.execute(query, (employee, branch, designation, employee_id))
+        clear_text()
+        conn.commit()
+    else:
+        return True
 
 def add_employee():
     if e1.get() == '' or e2.get() == '' or e3.get() == '' or e4.get() == '':
@@ -80,7 +91,7 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 win = Tk()
-win.configure(bg='red')
+win.configure(bg='grey')
 q= StringVar()
 e1= StringVar()
 e2= StringVar()
