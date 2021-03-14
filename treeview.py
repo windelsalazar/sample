@@ -4,6 +4,7 @@ from tkinter import ttk
 from tkinter import messagebox
 import psycopg2
 
+         
 
 def update(rows):
     tree.delete(*tree.get_children())
@@ -37,11 +38,13 @@ def getrow(event):
 
 
 def update_employee():
+    if e1.get() == '' or e2.get() == '' or e3.get() == '' or e4.get() == '':
+        messagebox.showerror('Ooops!',  'Please select an employee you want to update!')
+        return
     employee_id = e1.get()
     employee = e2.get()
     branch = e3.get()
     designation = e4.get()
-
     if messagebox.askyesno("Confirm Please", "Are you sure you want to update this employee?"):
         query = "UPDATE tree SET employee = %s, branch = %s, designation = %s WHERE employee_id = %s"
         cur.execute(query, (employee, branch, designation, employee_id))
@@ -52,7 +55,7 @@ def update_employee():
 
 def add_employee():
     if e1.get() == '' or e2.get() == '' or e3.get() == '' or e4.get() == '':
-        messagebox.showerror('Ooops!',  'Please input all fields!')
+        messagebox.showerror('Ooops!',  'Please input all fields !')
         return
     employee_id = e1.get()
     employee = e2.get()
@@ -68,7 +71,7 @@ def add_employee():
 
 def delete_employee():
     if e1.get() == '' or e2.get() == '' or e3.get() == '' or e4.get() == '':
-        messagebox.showerror('Ooops!',  'Please choose item to delete!')
+        messagebox.showerror('Ooops!',  'Please choose employee you want to delete!')
         return
     employee_id = e1.get()
     if messagebox.askyesno("Confirm Delete?", "Are you sure you want to delete this employee?"):
